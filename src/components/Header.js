@@ -11,18 +11,18 @@ const Header = () => {
     },[])
     const status =useOffline();
     return (
-        <div className="header">
-            <div className="logo-container">
-                <img className="logo" src={LOGO_URL}></img>
+        <div className="flex justify-between shadow bg-orange-300">
+            <div className="w-[100px] ">
+                <img className="" src={LOGO_URL}></img>
             </div>
-            <div className="nav-items">
-                <ul className="list">
-                   <li>Status :{status?"🟢":"🔴"}</li>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/about">AboutUs</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
-                    <li><Link to="/cart">Cart</Link></li>
-                    <li><Link to="/grocery">Grocery</Link></li>
+            <div className="flex items-center">
+                <ul className="flex p-5 ">
+                    <li className="mx-3 ">Status :{status?"🟢":"🔴"}</li>
+                    <li className="mx-3 "><Link to="/">Home</Link></li>
+                    <li className="mx-3 "><Link to="/about">AboutUs</Link></li>
+                    <li className="mx-3 "><Link to="/contact">Contact</Link></li>
+                    <li className="mx-3 "><Link to="/cart">Cart</Link></li>
+                    <li className="mx-3 "><Link to="/grocery">Grocery</Link></li>
                     <button onClick={()=>{
                     loginbtn=="Login"?SetLoginBtn("Logout"):SetLoginBtn("Login");
                     }}>{loginbtn}</button> 
