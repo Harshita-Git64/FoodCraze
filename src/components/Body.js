@@ -1,4 +1,4 @@
-import Cards from "./Cards";
+import Cards, {Promotedrescards} from "./Cards";
 import resData  from "../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
@@ -10,6 +10,8 @@ const Body=()=>{
     const [resList,setList]=useState([]);
     const [filteredRest,setFilteredRestaurant]=useState([]);
     const [searchText,setSearchText]=useState("");
+
+    const Promotedlabel=Promotedrescards(Cards)
     useEffect(()=>{
        //fetchData(); 
      setList(resData);
@@ -40,8 +42,8 @@ const Body=()=>{
     // }
     return resList.length ===0?<Shimmer/>:(
         <div className="body">
-            <div className="filter"> 
-           <button className="filter-btn" onClick={()=>{
+            <div className="flex justify-between p-5"> 
+           <button className="bg-gray-300 px-3 rounded-lg" onClick={()=>{
              const list=resList.filter((restaurant)=>restaurant.info.avgRating>4);
             //  <div className="rest-container">
             //     {<Cards  resObj={resData}/>}
@@ -49,9 +51,9 @@ const Body=()=>{
             setFilteredRestaurant(list)
              }}>Top Rated Restaurant</button>
              
-             <div className="search-bar">
-             <input type="text" placeholder="Search Restaurants" value={searchText} onChange={(e)=>setSearchText(e.target.value)}></input>
-             <button className="search-btn" onClick={()=>{
+             <div className="">
+             <input type="text" className="border border-solid border-black focus: ring-blue-500" placeholder="Search Restaurants" value={searchText} onChange={(e)=>setSearchText(e.target.value)}></input>
+             <button className="ml-3 bg-green-500 px-3 border border-solid border-green-200 rounded-lg" onClick={()=>{
                 
                 const searchlist=resList.filter((restaurant)=>restaurant.info.name.toLowerCase().includes(searchText.toLowerCase()))
                 setFilteredRestaurant(searchlist)
@@ -67,7 +69,7 @@ const Body=()=>{
              </div>
              </div>
            
-            <div className="rest-container">
+            <div className="rest-container flex flex-wrap justify-center ">
             {/* { <Cards resObj={resData[0]}/>
             <Cards resObj={resData[1]}/>
             <Cards resObj={resData[2]}/>
@@ -78,7 +80,9 @@ const Body=()=>{
             <Cards resObj={resData[7]}/>
             <Cards resObj={resData[8]}/> } */}
 {
-    filteredRest.map((restaurant)=>(<Link to={"/restaurant/"+restaurant.info.id} key={restaurant.info.id} ><Cards resObj={restaurant}/></Link>))
+    filteredRest.map((restaurant)=>(<Link to={"/restaurant/"+restaurant.info.id} key={restaurant.info.id}>
+       { restaurant.info.promoted ||restaurant.info.aggregatedDiscountInfoV2 ? <Promotedlabel resObj={restaurant}/>: <Cards resObj={restaurant}/>}</Link>))
+       
 }
             
             </div>
