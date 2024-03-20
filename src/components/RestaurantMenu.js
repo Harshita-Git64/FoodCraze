@@ -4,12 +4,13 @@ import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Shimmer from "./Shimmer";
 import { REST_MENU } from "../utils/constants";
 import { useParams } from "react-router-dom";
+import RestaurantCategories from "./RestaurantCategories";
 
 const RestaurantMenu=()=>{
    // const[resInfo,setResInfo]= useState(null)
 
     const {resId}=useParams()
-   const resInfo=useRestaurantMenu(resId);
+    const resInfo=useRestaurantMenu(resId);
 
     //const{name,cuisines,costForTwo}=resData[0]?.info;
     const fltr=resData.filter((e)=>e.info.id===resId);//static 
@@ -40,17 +41,26 @@ const RestaurantMenu=()=>{
    const {name,cuisines,costForTwoMessage,areaName,locality}= resInfo?.cards[2]?.card?.card?.info;
    const {itemCards}= resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
    console.log(resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
-
+   const filteredcategory=resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((e)=>e?.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
+   console.log("-----")
+   
+  
+   console.log(filteredcategory)
+   const category=filteredcategory.map((e)=>{
+    e?.card?.card?.title
+    })
+  // console.log(category)
     return(
-        <div className="resinfo">
-         
-          <h1>{name}</h1>
+        <div className="p-5 text-center">
+          <b>{name}</b>
           <h6>{locality},{areaName}</h6>
           <p>Cuisines : {cuisines.join(", ")} - {costForTwoMessage}</p>
           {/* <p>{cuisines.map((e)=><li>{e}</li>)}</p> */}
           <h2>Menu</h2>
-          <p>{itemCards.map((e)=><li>{e.card.info.name}</li>)}</p>
-          <h2>items</h2>
+          {/* <p>{itemCards.map((e)=><li>{e.card.info.name}</li>)}</p> */}
+          <h2 className="font-semibold py-4">Categories</h2>
+         
+          <p>{filteredcategory.map((e)=><RestaurantCategories data={e?.card?.card}/>)}</p>
         </div>
     )
       
