@@ -11,7 +11,7 @@ const RestaurantMenu=()=>{
 
     const {resId}=useParams()
     const resInfo=useRestaurantMenu(resId);
-
+    const [showIndex,SetShowIndex]=useState(0)
     //const{name,cuisines,costForTwo}=resData[0]?.info;
     const fltr=resData.filter((e)=>e.info.id===resId);//static 
 
@@ -19,7 +19,7 @@ const RestaurantMenu=()=>{
     // fetchData();
 
     // //setResInfo(fltr)//static
-    // },[])
+    // },[])+
 
 
    // 
@@ -44,23 +44,30 @@ const RestaurantMenu=()=>{
    const filteredcategory=resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((e)=>e?.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
    console.log("-----")
    
-  
    console.log(filteredcategory)
    const category=filteredcategory.map((e)=>{
     e?.card?.card?.title
     })
   // console.log(category)
+
+ 
+ 
     return(
         <div className="p-5 text-center">
           <b>{name}</b>
           <h6>{locality},{areaName}</h6>
-          <p>Cuisines : {cuisines.join(", ")} - {costForTwoMessage}</p>
+          <p>Cuisines : {cuisines.join(", ")} - {costForTwoMessage}</p> 
           {/* <p>{cuisines.map((e)=><li>{e}</li>)}</p> */}
           <h2>Menu</h2>
           {/* <p>{itemCards.map((e)=><li>{e.card.info.name}</li>)}</p> */}
           <h2 className="font-semibold py-4">Categories</h2>
          
-          <p>{filteredcategory.map((e)=><RestaurantCategories data={e?.card?.card}/>)}</p>
+          <p>{filteredcategory.map((e,index)=> <RestaurantCategories 
+          data={e?.card?.card} 
+          key={e?.card?.card.title} 
+          showItems={index===showIndex?true:false}
+          SetShowIndex={()=>SetShowIndex(index)}
+          />)}</p>
         </div>
     )
       
