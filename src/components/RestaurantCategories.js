@@ -8,8 +8,7 @@ const RestaurantCategories=({data,showItems,SetShowIndex})=>{
    
     SetShowIndex();
     //SetShowItems(!showItems)
-   // console.log(showItems);
-   
+   // console.log(showItems);  
    }
     return(
         <div>
@@ -18,11 +17,8 @@ const RestaurantCategories=({data,showItems,SetShowIndex})=>{
                 <span className="font-bold text-2xl">{data.title} ({data.itemCards.length})</span>
                 <span > {showItems?"🔼":"🔽"}</span>
                 </div>
-
                 {showItems && <ItemsList item={data}/>}
             </div>
-           
-           
         </div>
     )
 }
