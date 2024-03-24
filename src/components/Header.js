@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LOGO_URL } from "../utils/constants";// way to import for named exports
 import useOffline from "../utils/useOffline";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
     const [loginbtn,SetLoginBtn]=useState("Login");
@@ -10,6 +11,7 @@ const Header = () => {
         console.log("useeffect is called1")
     },[])
     const status =useOffline();
+    const{LoggedInUser}=useContext(UserContext)
     return (
         <div className="flex justify-between shadow bg-orange-300">
             <div className="w-[100px] ">
@@ -30,6 +32,7 @@ const Header = () => {
                     <button onClick={()=>{
                     onbtn=="ON"?SetONBtn("OFF"):SetONBtn("ON");
                     }}>{onbtn}</button> 
+                    <li className="mx-3">{LoggedInUser}</li>
                 </ul>
                
             </div>
