@@ -3,6 +3,7 @@ import { LOGO_URL } from "../utils/constants";// way to import for named exports
 import useOffline from "../utils/useOffline";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
     const [loginbtn,SetLoginBtn]=useState("Login");
@@ -12,9 +13,12 @@ const Header = () => {
     },[])
     const status =useOffline();
     const{LoggedInUser}=useContext(UserContext)
+    //subscribing to store using selector
+    const cartItem=useSelector((stores)=>stores.cart.items)
+    console.log(cartItem)
     return (
         <div className="flex justify-between shadow bg-orange-300">
-            <div className="w-[100px] ">
+            <div className="w-[100px]">
                 <img className="" src={LOGO_URL}></img>
             </div>
             <div className="flex items-center">
@@ -23,7 +27,7 @@ const Header = () => {
                     <li className="mx-3 "><Link to="/">Home</Link></li>
                     <li className="mx-3 "><Link to="/about">AboutUs</Link></li>
                     <li className="mx-3 "><Link to="/contact">Contact</Link></li>
-                    <li className="mx-3 "><Link to="/cart">Cart</Link></li>
+                    <li className="mx-3 "><Link to="/cart">Cart({cartItem.length})</Link></li>
                     <li className="mx-3 "><Link to="/grocery">Grocery</Link></li>
                     <button onClick={()=>{
                     loginbtn=="Login"?SetLoginBtn("Logout"):SetLoginBtn("Login");
