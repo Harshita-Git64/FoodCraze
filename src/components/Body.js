@@ -18,8 +18,7 @@ const Body=()=>{
     setFilteredRestaurant(resData);
     },[]);
 
-    const fetchData = async ()=>{
-       
+        const fetchData = async ()=>{
         const data=await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=22.717&lng=75.8337")
         const jsondata=await data.json();
         //setList(resList);
