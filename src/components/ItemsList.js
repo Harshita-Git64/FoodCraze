@@ -3,7 +3,7 @@ import { ITEMS_IMG } from "../utils/constants";
 import { addItem } from "../utils/cartSlice.js";
 
 const ItemsList = ({ item }) => {
-  console.log(item?.itemCards);
+  console.log(item);
   const dispatch = useDispatch();
   const handleItems = (items) => {
   dispatch(addItem(items));
@@ -25,13 +25,13 @@ const ItemsList = ({ item }) => {
                 >
                   Add
                 </button>
-                {ITEMS_IMG + e.card.info.imageId && (
+                {(ITEMS_IMG + e.card.info.imageId) ?( 
                   <img
                     className="w-28 h-24 rounded-lg"
                     src={ITEMS_IMG + e.card.info.imageId}
-                    alt="img"
+                    alt=""
                   ></img>
-                )}
+                ):null}
               </div>
             </div>
           </div>
