@@ -2,9 +2,10 @@ import { useEffect,useState } from "react";
 import resData  from "../utils/mockData";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Shimmer from "./Shimmer";
-import { REST_MENU } from "../utils/constants";
 import { useParams } from "react-router-dom";
 import RestaurantCategories from "./RestaurantCategories";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdStars } from "react-icons/md";
 
 const RestaurantMenu=()=>{
    // const[resInfo,setResInfo]= useState(null)
@@ -38,31 +39,30 @@ const RestaurantMenu=()=>{
         return (<Shimmer />);
     }
    // console.log(resInfo?.cards[2]?.card?.card?.info.name)
-   const {name,cuisines,costForTwoMessage,areaName,locality}= resInfo?.cards[2]?.card?.card?.info;
+   const {name,cuisines,costForTwoMessage,areaName,locality,avgRatingString,totalRatingsString}= resInfo?.cards[2]?.card?.card?.info;
    const {itemCards}= resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-   console.log(resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
+   //console.log(resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards)
    const filteredcategory=resInfo?.cards[5]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((e)=>e?.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory")
    console.log("-----")
    
    console.log(filteredcategory)
-   const category=filteredcategory.map((e)=>{
-    e?.card?.card?.title
-    })
-  // console.log(category)
-
- 
- 
     return(
-        <div className="p-5 text-center">
-          <b>{name}</b>
-          <h6>{locality},{areaName}</h6>
-          <p>Cuisines : {cuisines.join(", ")} - {costForTwoMessage}</p> 
-          {/* <p>{cuisines.map((e)=><li>{e}</li>)}</p> */}
-          <h2>Menu</h2>
-          {/* <p>{itemCards.map((e)=><li>{e.card.info.name}</li>)}</p> */}
-          <h2 className="font-semibold py-4">Categories</h2>
+        <div className="m-5">
+        <div className="mx-64">
+          <h1 className="font-bold text-2xl">{name}</h1>
+          <div className="flex items-center text-l font-thin text-sm my-2">
+          <span ><IoLocationOutline className="font-bold"/></span>
+          <span>{locality},{areaName}</span>
+          </div>
+          <div className="flex items-center font-semibold gap-1">
+         <span><MdStars className="text-xl text-green-700" /></span>
+         <span>{avgRatingString} ({totalRatingsString}) ◦ {costForTwoMessage}</span>
+          </div>
+         <div className="border-2 bottom-1 border-dashed my-4 "></div>
+          </div>
+          <div className="font-semibold py-2 flex items-center justify-center ">Restaurant Menu</div>
          
-          <p>{filteredcategory.map((e,index)=> <RestaurantCategories 
+          <p>{filteredcategory.map((e,index)=> <RestaurantCategories
           data={e?.card?.card} 
           key={e?.card?.card.title} 
           showItems={index===showIndex?true:false}
@@ -72,6 +72,5 @@ const RestaurantMenu=()=>{
     )
       
 }
-
 
 export default RestaurantMenu;
