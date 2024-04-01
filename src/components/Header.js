@@ -6,12 +6,10 @@ import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 const Header = () => {
-  
   useEffect(() => {
     console.log("useeffect is called");
   }, []);
   const status = useOffline();
-  const { LoggedInUser } = useContext(UserContext);
   //subscribing to store using selector
   const cartItem = useSelector((stores) => stores.cart.items);
   console.log(cartItem);
@@ -27,7 +25,7 @@ const Header = () => {
           </li>
           <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/about">AboutUs</Link>
-          </li> 
+          </li>
           <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/contact">Contact</Link>
           </li>
@@ -36,7 +34,6 @@ const Header = () => {
           </li>
           <li className="mx-3 ">Status :{status ? "🟢" : "🔴"}</li>
           {/* <li className="mx-3 font-medium hover:text-orange-500"><Link to="/grocery">Grocery</Link></li> */}
-          <li className="mx-3">{LoggedInUser}</li>
         </ul>
       </div>
     </div>
