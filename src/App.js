@@ -5,10 +5,13 @@ import Body from "./components/Body";
 import AboutUs from "./components/AboutUs";
 import Contact from "./components/Contact";
 import Cart from "./components/Cart";
+import FavouriteRestaurants from "./components/FavouriteRestaurants"
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import { createBrowserRouter,Outlet,RouterProvider } from "react-router-dom";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
 
 const reactelement=<h1>this is h1 tag</h1>
 const root=ReactDOM.createRoot(document.getElementById('root'));
@@ -17,7 +20,7 @@ const root=ReactDOM.createRoot(document.getElementById('root'));
     // const resData={
     //     info:{
     //         name:"xyz",
-    //         areaName:"kuch bhi maan lo"
+    //         areaName:"Ind"
     //     }
     // }
     
@@ -33,12 +36,16 @@ const Appcontainer=()=>{
     },[])
 
     return(
+        <Provider store={appStore}>
         <UserContext.Provider value={{LoggedInUser:userInfo}}>
         <div className="app">
             <Header/>
+            <div className="mt-[150px]">
             <Outlet/>
+            </div>
         </div>
         </UserContext.Provider>
+        </Provider>
     )
 }    
 
@@ -65,6 +72,10 @@ const approuter=createBrowserRouter([
                 element:<Cart/>
             },
             {
+                path:"/favourite",
+                element:<FavouriteRestaurants/>
+            },
+            {
                 path:"/grocery",
                 element:<Suspense fallback={<h1>Loading....</h1>}><Grocery/></Suspense>
             },
@@ -74,7 +85,6 @@ const approuter=createBrowserRouter([
             }
         ]
     },
-   
 ])
 
 root.render(<RouterProvider router={approuter}/>)
