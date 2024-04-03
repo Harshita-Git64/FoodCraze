@@ -4,6 +4,7 @@ import useOffline from "../utils/useOffline";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
+import { GoHeartFill } from "react-icons/go";
 
 const Header = () => {
   useEffect(() => {
@@ -23,14 +24,19 @@ const Header = () => {
           <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/">Home</Link>
           </li>
-          <li className="mx-3 font-medium hover:text-orange-500 transition-all">
+          {/* <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/about">AboutUs</Link>
           </li>
           <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/contact">Contact</Link>
-          </li>
+          </li> */}
           <li className="mx-3 font-medium hover:text-orange-500 transition-all">
             <Link to="/cart">Cart[{cartItem.length}]</Link>
+          </li>
+          <li className="mx-3 text-red-500 hover:scale-110 text-2xl transition-all">
+            <Link to="/favourite" title="Favourite">
+              <GoHeartFill />
+            </Link>
           </li>
           <li className="mx-3 ">Status :{status ? "🟢" : "🔴"}</li>
           {/* <li className="mx-3 font-medium hover:text-orange-500"><Link to="/grocery">Grocery</Link></li> */}

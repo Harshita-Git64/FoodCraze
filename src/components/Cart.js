@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ITEMS_IMG } from "../utils/constants";
 import { clearCart, removeItem } from "../utils/cartSlice";
+import { IoMdStar } from "react-icons/io";
 import Body from "./Body";
 import { Link } from "react-router-dom";
 
@@ -49,10 +50,30 @@ const Cart = () => {
 
           <div className="mx-64">
             {cartItem.map((e, index) => (
-              <div className="flex justify-between py-3 border-gray-500 border-b-2">
-                <div className="items-center">
-                  <span className="font-black">{e?.card?.info?.name}</span>
-                  <span> - ₹ {e?.card?.info?.price}</span>
+              <div className="flex justify-between py-3 border-gray-300 border-b-2">
+                <div className="items-start flex flex-col w-9/12">
+                  <div>
+                    <span className="font-black">{e?.card?.info?.name}</span>
+                    <span> - ₹ {e?.card?.info?.price / 100}</span>
+                  </div>
+                  {e?.card?.info?.ratings?.aggregatedRating?.rating && (
+                    <div className="flex items-center text-sm gap-1">
+                      <span>
+                        <IoMdStar className="text-l text-green-600" />
+                      </span>
+                      <span className="text-green-600 font-semibold">
+                        {e?.card?.info?.ratings?.aggregatedRating?.rating}
+                      </span>
+                      <span className="font-thin">
+                        (
+                        {
+                          e?.card?.info?.ratings?.aggregatedRating
+                            ?.ratingCountV2
+                        }
+                        )
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="items-end justify-center flex flex-col">
                   {e.card.info.imageId && (
@@ -62,13 +83,8 @@ const Cart = () => {
                       alt="img"
                     ></img>
                   )}
-                  {/* <img
-                  src="https://cdn-icons-png.flaticon.com/512/3649/3649581.png"
-                  className="h-10 hover:cursor-pointer"
-                  onClick={() => handleRemoveItem(e.card.info.id)}
-                ></img> */}
                   <button
-                    className="py-1 px-2 rounded-full font-bold text-white bg-black"
+                    className="py-1 px-2 rounded-full font-bold text-white  bg-red-500"
                     onClick={() => handleRemoveItem(index)}
                   >
                     Delete Item
