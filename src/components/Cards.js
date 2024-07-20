@@ -1,7 +1,5 @@
 import { CARDS_IMG } from "../utils/constants";
 import { MdStars } from "react-icons/md";
-import { IoMdHeart } from "react-icons/io";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToFavourites } from "../utils/favouriteRestaurantSlice";
 
@@ -36,13 +34,6 @@ const Cards = (props) => {
             className="w-full h-[150px] rounded-lg border-stone-700 object-cover brightness-90 backdrop-contrast-50 block"
             src={CARDS_IMG + cloudinaryImageId}
           ></img>
-          <div
-            className="absolute right-1 text-white hover:text-red-500 text-2xl"
-            onClick={() => AddToFavourites(resObj)}
-          >
-            <IoMdHeart />
-          </div>
-          <div class="absolute inset-x-0 bottom-0 h-10 shadow-inner"></div>
         </div>
       </div>
       <div className="font-bold pt-2 pl-1 overflow-hidden whitespace-nowrap text-ellipsis z-10">
