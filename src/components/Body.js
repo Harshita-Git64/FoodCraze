@@ -14,20 +14,37 @@ const Body = () => {
   const Promotedlabel = Promotedrescards(Cards);
   useEffect(() => {
     //fetchData();
+
+//  try{
+//   tt()
+//  }
+//  catch(err){
+//   console.log(err.message)
+//  }
+   
     setList(resData);
     setFilteredRestaurant(resData);
   }, []);
 
-  const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/mapi/homepage/getCards?lat=22.717&lng=75.8337"
-    );
-    const jsondata = await data.json();
-    //setList(resList);
-    setFilteredRestaurant(jsondata?.data?.Cards);
-    //console.log(jsondata);
-  };
-  //conditinal rendering: rendering on the basis of condition
+  const tt=async()=>{
+    try{
+      const api=await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=22.71700&lng=75.83370")
+      if (!api.ok) {
+        throw new Error(`HTTP error! status: ${api.status}`);
+      }
+      const output=await api.json();
+      console.log("okk")
+      console.log("fetched api",output.data.success.cards[3].gridWidget.gridElements.infoWithStyle.restaurants)
+      const resData=output.data?.success?.cards[3]?.gridWidget?.gridElements?.infoWithStyle?.restaurants
+    
+      setList(resData);
+      setFilteredRestaurant(resData);
+    }
+    catch(err){
+      console.log(err.message)
+     }
+  }
+  //conditional rendering: rendering on the basis of condition
   const onlineStatus = useOffline();
   if (onlineStatus === false) {
     return (
@@ -36,17 +53,15 @@ const Body = () => {
       </div>
     );
   }
-  // if(resList.length ===0)
-  // {
-  //     return (<Shimmer />);
-  // }
   return resList.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="overflow-y-scroll no-scrollbar">
       <div className="flex justify-between mx-36 my-6">
+        <div className="flex justify-start gap-3">
+        {/* Rating filter */}
         <button
-          className="hover:bg-gray-100 px-4 py-2 text-gray-500 text-base rounded-full border border-slate-400 "
+          className="px-2 text-gray-600 text-base rounded-full border border-slate-300 "
           onClick={() => {
             const list = resList.filter(
               (restaurant) => restaurant.info.avgRating > 4
@@ -54,13 +69,38 @@ const Body = () => {
             setFilteredRestaurant(list);
           }}
         >
-          Top Rated Restaurant
+          Rating 4.0+
         </button>
+        {/* offer filter */}
+        <button
+          className=" px-3 text-gray-600 text-base rounded-full border border-slate-300 "
+          onClick={() => {
+            const list = resList.filter(
+              (restaurant) => restaurant.info.aggregatedDiscountInfoV3
+            );
+            setFilteredRestaurant(list);
+          }}
+        >
+          Offers
+        </button>
+        {/* pure veg filter*/}
+        <button
+          className="px-3 text-gray-600 text-base rounded-full border border-slate-300 "
+          onClick={() => {
+            const list = resList.filter(
+              (restaurant) => restaurant.info.veg===true
+            );
+            setFilteredRestaurant(list);
+          }}
+        >
+          Pure Veg
+        </button>
+        </div>
 
-        <div className="">
+        <div>
           <input
             type="text"
-            className="text-base border border-solid outline-none rounded-lg px-2 py-1 transition-all focus:border-blue-300 focus:border-2 w-52 "
+            className="text-base border border-slate-300  outline-none rounded-lg px-2 py-1 transition-all focus:border-blue-300 focus:border-2 w-52 "
             placeholder="Search Restaurants"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -82,16 +122,8 @@ const Body = () => {
       </div>
 
       <div className="flex flex-wrap justify-center mx-10">
-        {/* { <Cards resObj={resData[0]}/>
-            <Cards resObj={resData[1]}/>
-            <Cards resObj={resData[2]}/>
-            <Cards resObj={resData[3]}/>
-            <Cards resObj={resData[4]}/>
-            <Cards resObj={resData[5]}/>
-            <Cards resObj={resData[6]}/>
-            <Cards resObj={resData[7]}/>
-            <Cards resObj={resData[8]}/> } */}
-        {filteredRest.map((restaurant) => (
+        {filteredRest.map((restaurant) => 
+        (
           <Link
             to={"/restaurant/" + restaurant.info.id}
             key={restaurant.info.id}
