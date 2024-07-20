@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CARDS_IMG } from "../utils/constants";
 import resData from "../utils/mockData";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import Shimmer from "./Shimmer";
@@ -38,6 +39,7 @@ const RestaurantMenu = () => {
   const {
     name,
     cuisines,
+    cloudinaryImageId,
     costForTwoMessage,
     areaName,
     locality,
@@ -59,7 +61,14 @@ const RestaurantMenu = () => {
   return (
     <div className="m-5">
       <div className="mx-64">
-        <h1 className="font-bold text-2xl">{name}</h1>
+        <div className="relative">
+          <img
+            className="w-full h-56 rounded-lg border-stone-700 object-cover brightness-90 backdrop-contrast-50 block"
+            src={CARDS_IMG + cloudinaryImageId}
+          ></img>
+            <h1 className="font-bold text-2xl absolute bottom-1 left-2  text-white ">{name}</h1>
+          </div>
+       
         <div className="flex items-center text-l font-thin text-sm my-2">
           <span>
             <IoLocationOutline className="font-bold" />
