@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ITEMS_IMG } from "../utils/constants";
 import { addItem } from "../utils/cartSlice.js";
@@ -5,8 +6,14 @@ import { IoMdStar } from "react-icons/io";
 
 const ItemsList = ({ item }) => {
   console.log(item);
+  const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
   const handleItems = (items) => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
     dispatch(addItem(items));
   };
   return (
@@ -46,14 +53,19 @@ const ItemsList = ({ item }) => {
                 alt="img"
               ></img>
             )}
-
+            {/* Add to cart button */}
             <button
-              className="py-1 px-1 rounded-full text-green-500 font-semibold bg-white border border-green-600 hover:bg-gray-200"
+              className="py-1 px-1 mr-3 rounded-md font-bold text-slate-50 text-xs bg-green-500 border border-green-500 hover:bg-green-600 "
               onClick={() => handleItems(e)}
             >
               ADD TO CART
             </button>
           </div>
+          {showToast && (
+            <div className="w-52 bg-green-400 fixed top-32 right-4 p-2 rounded font-serif">
+              ✔ Item added to the cart!!
+            </div>
+          )}
         </div>
       ))}
     </div>
