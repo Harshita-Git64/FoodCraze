@@ -2,16 +2,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { ITEMS_IMG } from "../utils/constants";
 import { clearCart, removeItem } from "../utils/cartSlice";
 import { IoMdStar } from "react-icons/io";
-import Body from "./Body";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Cart = () => {
+  const [showToast, setShowToast] = useState(false);
   const cartItem = useSelector((stores) => stores.cart.items);
   const dispatch = useDispatch();
   const clearAllCartItems = () => {
     dispatch(clearCart());
   };
   const handleRemoveItem = (index) => {
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
     dispatch(removeItem(index));
   };
   console.log(cartItem);
@@ -27,12 +33,12 @@ const Cart = () => {
             <span>Your Cart is </span>
             <span className="text-red-600">Empty!!</span>
           </div>
-          <div className="font-thin text-gray-500">
+          <div className="font-thin text-gray-600">
             Must add items on the cart before you proceed to check out.
           </div>
           <div>
             <Link to="/">
-              <button className="px-5 py-3 rounded-full bg-red-600 font-semibold text-white">
+              <button className="px-5 py-3 rounded-full bg-red-500 font-semibold text-white  hover:bg-red-600">
                 ADD ITEMS
               </button>
             </Link>
@@ -84,12 +90,18 @@ const Cart = () => {
                     ></img>
                   )}
                   <button
-                    className="py-1 px-2 rounded-full font-bold text-white  bg-red-500"
+                    className="py-1 px-3  mr-4 rounded-md font-bold text-sm text-white  bg-red-500  hover:bg-red-600"
                     onClick={() => handleRemoveItem(index)}
                   >
-                    Delete Item
+                    Remove
                   </button>
                 </div>
+
+                {showToast && (
+                  <div className="w-56 bg-red-400 fixed top-32 right-4 p-2 rounded font-serif">
+                    Item removed from the cart!!
+                  </div>
+                )}
               </div>
             ))}
           </div>
