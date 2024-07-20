@@ -12,7 +12,6 @@ import { createBrowserRouter,Outlet,RouterProvider } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
-import Interview from "./components/Interview";
 
 const root=ReactDOM.createRoot(document.getElementById('root'));
 
@@ -70,10 +69,6 @@ const approuter=createBrowserRouter([
             {
                 path:"/cart",
                 element:<Cart/>
-            },
-            {
-                path:"/interview",
-                element:<Interview/>
             },
             {
                 path:"/favourite",
