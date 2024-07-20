@@ -14,7 +14,6 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Interview from "./components/Interview";
 
-const reactelement=<h1>this is h1 tag</h1>
 const root=ReactDOM.createRoot(document.getElementById('root'));
 
 // root.render(reactelement);
