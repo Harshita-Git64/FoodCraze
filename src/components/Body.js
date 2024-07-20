@@ -14,19 +14,11 @@ const Body = () => {
   const Promotedlabel = Promotedrescards(Cards);
   useEffect(() => {
     //fetchData();
-
-//  try{
-//   tt()
-//  }
-//  catch(err){
-//   console.log(err.message)
-//  }
-   
     setList(resData);
     setFilteredRestaurant(resData);
   }, []);
 
-  const tt=async()=>{
+  const fetchData=async()=>{
     try{
       const api=await fetch("https://www.swiggy.com/mapi/homepage/getCards?lat=22.71700&lng=75.83370")
       if (!api.ok) {
