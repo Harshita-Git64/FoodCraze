@@ -12,6 +12,7 @@ import { createBrowserRouter,Outlet,RouterProvider } from "react-router-dom";
 import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import Interview from "./components/Interview";
 
 const reactelement=<h1>this is h1 tag</h1>
 const root=ReactDOM.createRoot(document.getElementById('root'));
@@ -40,7 +41,7 @@ const Appcontainer=()=>{
         <UserContext.Provider value={{LoggedInUser:userInfo}}>
         <div className="app">
             <Header/>
-            <div className="mt-[150px]">
+            <div className="mt-[150px] ">
             <Outlet/>
             </div>
         </div>
@@ -70,6 +71,10 @@ const approuter=createBrowserRouter([
             {
                 path:"/cart",
                 element:<Cart/>
+            },
+            {
+                path:"/interview",
+                element:<Interview/>
             },
             {
                 path:"/favourite",
